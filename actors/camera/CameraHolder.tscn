@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://actors/camera/Camera.gd" type="Script" id=1]
+
+[node name="CameraHolder" type="Spatial"]
+transform = Transform( -1, 0, 8.74228e-008, 0, 1, 0, -8.74228e-008, 0, -1, 0, 0, 0 )
+script = ExtResource( 1 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, -1.51807e-008, 1.73517e-007, -1.51808e-008, 0.984808, 0.173648, -1.73517e-007, -0.173648, 0.984808, 2, 3.57983, 9.2884 )
+fov = 60.0
+far = 250.0
+
