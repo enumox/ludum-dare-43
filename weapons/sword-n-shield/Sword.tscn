@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://weapons/Weapon.tscn" type="PackedScene" id=1]
+[ext_resource path="res://weapons/sword-n-shield/Sword.gd" type="Script" id=2]
+[ext_resource path="res://weapons/sword-n-shield/SwordMesh.tscn" type="PackedScene" id=3]
+
+[sub_resource type="Animation" id=2]
+
+resource_name = "attack"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 23.7882, 128.508, 115.999 ), Vector3( 23.7882, 128.508, 115.999 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CollisionShape:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[sub_resource type="CylinderShape" id=1]
+
+radius = 0.263429
+
+[node name="Sword" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+damage = 5.0
+attack_delay = 1.0
+
+[node name="AnimationPlayer" parent="." index="1"]
+anims/attack = SubResource( 2 )
+
+[node name="SwordMesh" parent="." index="2" instance=ExtResource( 3 )]
+transform = Transform( -3.60117e-009, 0, -0.0823852, 0, 0.225141, 0, 0.0823852, 0, -3.60117e-009, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="." index="3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+shape = SubResource( 1 )
+disabled = true
+

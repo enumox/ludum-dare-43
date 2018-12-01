@@ -4,6 +4,7 @@ class_name BaseAnimal
 signal path_requested(start, end, requester)
 
 onready var weak_spot = $WeakSpot
+onready var body = $BodyHitBox
 onready var presence_shape = $PresenseArea/CollisionShape
 onready var sight = $Sight
 onready var presence = $PresenseArea
@@ -21,25 +22,32 @@ export(float, 1.5, 2.5) var weak_spot_hit_multiplier : float
 enum States { IDLING, RUNNING, ATTACKING, DEAD, FALLING }
 
 var state = States.IDLING
-var health : float = max_hp
+var health : float
 var target = null
 var movement : = Vector3()
 var path = Array()
 var player = null
 
 func _ready() -> void:
+	health = max_hp
 	weak_spot.connect('body_entered', self, '_on_weak_spot_body_entered')
 	sight.connect('body_entered', self, '_on_sight_body_entered')
 	presence.connect('body_entered', self, '_on_presence_body_entered')
 	presence.connect('body_exited', self, '_on_presence_body_exited')
+	body.connect('area_entered', self, '_on_body_area_entered')
 
 func _process(delta : float) -> void:
 	if player == null or state != States.IDLING:
 		return
 	#TODO: Check for player running/walking/crouching
-	if player.translation.distance_to(translation) < presence_shape.shape.radius / 2 and state != States.RUNNING:
+	var distance_to_check = presence_shape.shape.radius
+	if player.walking:
+		distance_to_check *= 0.5
+	elif player.crouching:
+		distance_to_check *= 0.25
+	
+	if player.translation.distance_to(translation) < distance_to_check and state != States.RUNNING:
 		state = States.RUNNING
-		
 
 func _physics_process(delta : float) -> void:
 	match state:
@@ -55,10 +63,10 @@ func _physics_process(delta : float) -> void:
 			_handle_falling(delta)
 
 func _handle_idling(delta : float) -> void:
-	print('idling')
 	if not is_on_floor():
 		state = States.FALLING
 	if path.size() == 0:
+		randomize()
 		emit_signal('path_requested', translation, Vector3(randi() % 45, 0, randi() % 45), self)
 		return
 	var direction = (path[0] - translation).normalized() - (path[0] - translation).normalized().project(raycast.get_collision_normal())
@@ -71,7 +79,6 @@ func _handle_idling(delta : float) -> void:
 		path.remove(0)
 	
 func _handle_running(delta : float) -> void:
-	print('running')
 	if path.size() == 0:
 		emit_signal('path_requested', translation, -(player.translation - translation).normalized() * 150, self)
 		return
@@ -95,11 +102,16 @@ func _handle_dead(delta : float) -> void:
 		state = States.FALLING
 
 func _handle_falling(delta : float) -> void:
-	print('falling')
 	if is_on_floor():
 		state = States.IDLING
 		return
 	move_and_slide(Vector3(0, -gravity, 0), Vector3(0, 1, 0))
+
+func _take_damage(value : float, weak_spot_hit : bool = false) -> void:
+	print('damage')
+	health -= value
+	if health <= 0:
+		queue_free()
 
 func set_sense_of_presence_radius(new_value : float) -> void:
 	if presence_shape == null:
@@ -134,3 +146,9 @@ func _on_presence_body_exited(body : PhysicsBody) -> void:
 		return
 	if self.player != null:
 		self.player = null
+
+func _on_body_area_entered(area) -> void:
+	var weapon = area as Weapon
+	if weapon == null:
+		return
+	_take_damage(weapon.damage)

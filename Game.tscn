@@ -21,6 +21,7 @@ move_speed = 15.0
 jump_force = 15.0
 gravity = -50.0
 acceleration = 2.0
+deceleration = 5.0
 
 [node name="CameraHolder" parent="Player" instance=ExtResource( 4 )]
 
