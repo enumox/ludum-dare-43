@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "BaseAnimal",
 "language": "GDScript",
 "path": "res://actors/animals/BaseAnimal.gd"
+}, {
+"base": "KinematicBody",
+"class": "Player",
+"language": "GDScript",
+"path": "res://actors/player/Player.gd"
 } ]
 _global_script_class_icons={
-"BaseAnimal": ""
+"BaseAnimal": "",
+"Player": ""
 }
 
 [application]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://actors/player/Player.gd" type="Script" id=1]
+[ext_resource path="res://actors/camera/CameraHolder.tscn" type="PackedScene" id=2]
 
 [sub_resource type="ConvexPolygonShape" id=1]
 
@@ -31,4 +32,6 @@ shape = SubResource( 1 )
 [node name="Mesh" type="MeshInstance" parent="."]
 mesh = SubResource( 2 )
 material/0 = SubResource( 3 )
+
+[node name="CameraHolder" parent="." instance=ExtResource( 2 )]
 

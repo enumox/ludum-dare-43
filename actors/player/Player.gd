@@ -1,4 +1,5 @@
 extends KinematicBody
+class_name Player
 
 export var move_speed : float
 export var jump_force : float
@@ -33,7 +34,7 @@ func _physics_process(delta : float) -> void:
 	movement.x = frame_velocity.x
 	movement.z = frame_velocity.z
 	movement.y += delta * gravity
-	movement = move_and_slide(movement, Vector3(0, 1, 0))
+	movement = move_and_slide(movement, Vector3(0, 1, 0), 2)
 
 func _input(event) -> void:
 	if event is InputEventMouseMotion:
