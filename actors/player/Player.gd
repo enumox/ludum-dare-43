@@ -1,6 +1,11 @@
 extends KinematicBody
 class_name Player
 
+signal interactable_found(text)
+signal item_lost()
+
+onready var gui = $GUI
+
 export var move_speed : float
 export var jump_force : float
 export var gravity : float
@@ -16,6 +21,11 @@ var walking : bool
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+func _process(delta : float) -> void:
+	if Input.is_action_just_pressed('interact'):
+		print('interact')
+		pass
 
 func _physics_process(delta : float) -> void:
 	dir = Vector3()
@@ -58,3 +68,9 @@ func _input(event) -> void:
 	if event is InputEventMouseMotion:
 		yaw = fmod(yaw - event.relative.x * 0.5, 360)
 		rotation = Vector3(rotation.x, deg2rad(yaw), 0)
+
+func _on_PickableArea_found_pickupable(display_message : String) -> void:
+	gui.show_text(display_message)
+
+func _on_PickableArea_lost_pickupable() -> void:
+	gui.show_text('')
