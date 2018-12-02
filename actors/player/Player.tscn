@@ -28,6 +28,11 @@ extents = Vector3( 0.3391, 0.446263, 1.5727 )
 [node name="Player" type="KinematicBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
 script = ExtResource( 1 )
+move_speed = 15.0
+jump_force = 5.0
+gravity = -9.8
+acceleration = 3.0
+deceleration = 7.0
 
 [node name="GUI" parent="." instance=ExtResource( 2 )]
 
@@ -43,6 +48,9 @@ material/0 = SubResource( 3 )
 [node name="WeaponSlot" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.32113, 0, 1 )
 script = ExtResource( 4 )
+
+[node name="CarryLocation" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0 )
 
 [node name="PickableArea" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 2 )

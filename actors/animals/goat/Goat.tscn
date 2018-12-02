@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://actors/animals/BaseAnimal.tscn" type="PackedScene" id=1]
+
+[node name="Goat" instance=ExtResource( 1 )]
+max_hp = 50.0
+gravity = 9.8
+move_speed = 7.0
+run_speed = 20.0
+description = "with horns"
+sense_of_presence_radius = 0.0
+attack_on_sight = false
+weak_spot_hit_multiplier = 0.0
+

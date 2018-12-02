@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://actors/animals/BaseAnimal.gd" type="Script" id=1]
+[ext_resource path="res://interface/gui/GUI.tscn" type="PackedScene" id=2]
 
 [sub_resource type="ConvexPolygonShape" id=1]
 
@@ -17,7 +18,7 @@ points = PoolVector3Array( -1, 1, 1, 1, 1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, 1,
 
 [sub_resource type="CylinderShape" id=5]
 
-radius = 25.0
+radius = 5.0
 height = 5.0
 
 [sub_resource type="CylinderShape" id=6]
@@ -31,6 +32,16 @@ extents = Vector3( 1, 0.700584, 1.68185 )
 [node name="BaseAnimal" type="KinematicBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 7.23, 39 )
 script = ExtResource( 1 )
+max_hp = 0.0
+gravity = 0.0
+move_speed = 0.0
+run_speed = 0.0
+description = ""
+sense_of_presence_radius = 0.0
+attack_on_sight = false
+weak_spot_hit_multiplier = 0.0
+
+[node name="GUI" parent="." instance=ExtResource( 2 )]
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1.5, 0, 0, 0 )

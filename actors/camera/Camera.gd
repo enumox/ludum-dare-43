@@ -4,7 +4,6 @@ signal interactable_found(text)
 signal item_lost()
 
 export(float, 0.1, 1.0) var mouse_sensibility : float
-onready var raycast = $Raycast
 
 var yaw : float
 var pitch : float

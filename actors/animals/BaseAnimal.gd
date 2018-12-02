@@ -1,3 +1,4 @@
+tool
 extends KinematicBody
 class_name BaseAnimal
 
@@ -9,6 +10,7 @@ onready var presence_shape = $PresenseArea/CollisionShape
 onready var sight = $Sight
 onready var presence = $PresenseArea
 onready var raycast = $RayCast
+onready var gui = $GUI
 
 export var max_hp : float
 export var gravity : float
@@ -27,6 +29,7 @@ var target = null
 var movement : = Vector3()
 var path = Array()
 var player = null
+var dead : bool = false
 
 func _ready() -> void:
 	health = max_hp
@@ -39,7 +42,6 @@ func _ready() -> void:
 func _process(delta : float) -> void:
 	if player == null or state != States.IDLING:
 		return
-	#TODO: Check for player running/walking/crouching
 	var distance_to_check = presence_shape.shape.radius
 	if player.walking:
 		distance_to_check *= 0.5
@@ -48,6 +50,19 @@ func _process(delta : float) -> void:
 	
 	if player.translation.distance_to(translation) < distance_to_check and state != States.RUNNING:
 		state = States.RUNNING
+
+func _input(event) -> void:
+	if player == null:
+		return
+	if event.is_action_pressed('interact') and dead and not player.carrying_offering:
+		$CollisionShape.queue_free()
+		$PresenseArea.queue_free()
+		$RayCast.queue_free()
+		$Sight.queue_free()
+		$BodyHitBox.queue_free()
+		$GUI.queue_free()
+		player.carry(self, get_parent())
+		set_process_input(false)
 
 func _physics_process(delta : float) -> void:
 	match state:
@@ -108,16 +123,23 @@ func _handle_falling(delta : float) -> void:
 	move_and_slide(Vector3(0, -gravity, 0), Vector3(0, 1, 0))
 
 func _take_damage(value : float, weak_spot_hit : bool = false) -> void:
-	print('damage')
+	print('damage: ' + str(value))
+	OS.delay_msec(100)
 	health -= value
 	if health <= 0:
-		queue_free()
+		dead = true
+		set_physics_process(false)
+		set_process(false)
+		rotation.z = 90
+		if player != null:
+			presence_shape.shape.radius /= 2
+			gui.show_text('Press (E) to pick body up')
 
 func set_sense_of_presence_radius(new_value : float) -> void:
-	if presence_shape == null:
+	if $PresenseArea/CollisionShape == null:
 		return
 	sense_of_presence_radius = new_value
-	presence_shape.shape.radius = sense_of_presence_radius
+	$PresenseArea/CollisionShape.shape.radius = sense_of_presence_radius
 
 func _on_weak_spot_body_entered(body : PhysicsBody) -> void:
 	pass
@@ -128,6 +150,8 @@ func _on_sight_body_entered(body : PhysicsBody) -> void:
 		return
 	if self.player == null:
 		self.player = player
+		if dead:
+			return
 	if attack_on_sight or state == States.RUNNING:
 		return
 	state = States.RUNNING
@@ -139,6 +163,8 @@ func _on_presence_body_entered(body : PhysicsBody) -> void:
 		return
 	if self.player == null:
 		self.player = player
+		if dead:
+			gui.show_text('Press (E) to pick body up')
 
 func _on_presence_body_exited(body : PhysicsBody) -> void:
 	var player = body as Player
@@ -146,6 +172,8 @@ func _on_presence_body_exited(body : PhysicsBody) -> void:
 		return
 	if self.player != null:
 		self.player = null
+	if dead == true:
+		gui.show_text('')
 
 func _on_body_area_entered(area) -> void:
 	var weapon = area as Weapon

@@ -5,6 +5,7 @@ signal interactable_found(text)
 signal item_lost()
 
 onready var gui = $GUI
+onready var carry_location : = $CarryLocation as Spatial
 
 export var move_speed : float
 export var jump_force : float
@@ -15,17 +16,14 @@ export var deceleration : float
 var movement : = Vector3()
 var dir = Vector3()
 var yaw : float
+var carrying_offering : bool = false
+var offering = null
 
 var crouching : bool
 var walking : bool
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-
-func _process(delta : float) -> void:
-	if Input.is_action_just_pressed('interact'):
-		print('interact')
-		pass
 
 func _physics_process(delta : float) -> void:
 	dir = Vector3()
@@ -74,3 +72,17 @@ func _on_PickableArea_found_pickupable(display_message : String) -> void:
 
 func _on_PickableArea_lost_pickupable() -> void:
 	gui.show_text('')
+
+func carry(animal, parent) -> void:
+	if carrying_offering:
+		return
+	parent.remove_child(animal)
+	carrying_offering = true
+	carry_location.add_child(animal)
+	offering = animal
+	animal.translation = Vector3()
+
+func take_offering() -> Object:
+	carrying_offering = false
+	carry_location.remove_child(offering)
+	return offering
