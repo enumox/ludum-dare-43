@@ -38,8 +38,7 @@ tracks/1/keys = {
 radius = 0.263429
 height = 3.23202
 
-[node name="Sword" index="0" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+[node name="Sword" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 damage = 5.0
 attack_delay = 1.0
@@ -53,4 +52,5 @@ transform = Transform( -4.37114e-008, 0, -1, 0, 1, 0, 1, 0, -4.37114e-008, 0, 0,
 [node name="CollisionShape" type="CollisionShape" parent="." index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 shape = SubResource( 2 )
+disabled = true
 

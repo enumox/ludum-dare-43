@@ -1,4 +1,3 @@
-tool
 extends KinematicBody
 class_name BaseAnimal
 
