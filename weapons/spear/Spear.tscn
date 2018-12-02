@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://weapons/Weapon.tscn" type="PackedScene" id=1]
+[ext_resource path="res://weapons/Weapon.gd" type="Script" id=2]
+[ext_resource path="res://weapons/spear/SpearMesh.tscn" type="PackedScene" id=3]
+
+[sub_resource type="Animation" id=1]
+
+resource_name = "attack"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 1.25 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CollisionShape:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[sub_resource type="BoxShape" id=2]
+
+extents = Vector3( 0.51543, 1, 0.474435 )
+
+[node name="Spear" instance=ExtResource( 1 )]
+transform = Transform( -4.37114e-008, 4.37114e-008, 1, 1, -4.37114e-008, 4.37114e-008, 4.37114e-008, 1, -4.37114e-008, 0, 0, 0 )
+script = ExtResource( 2 )
+damage = 25.0
+attack_delay = 1.5
+active_rotation = Vector3( 90, 0, 0 )
+active = false
+
+[node name="AnimationPlayer" parent="." index="1"]
+anims/attack = SubResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="." index="2"]
+transform = Transform( 1, 0, 1.64203e-015, 0, 1, 0, 1.64203e-015, 0, 1, 2.84217e-014, 3.4841, 2.84217e-014 )
+shape = SubResource( 2 )
+
+[node name="SpearMesh" parent="." index="3" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 1.64203e-015, 0, 1, 0, 1.64203e-015, 0, 1, 0, -1, 0 )
+

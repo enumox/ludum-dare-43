@@ -45,8 +45,8 @@ material/0 = SubResource( 3 )
 
 [node name="CameraHolder" parent="." instance=ExtResource( 3 )]
 
-[node name="WeaponSlot" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.32113, 0, 1 )
+[node name="WeaponSlot" type="Spatial" parent="CameraHolder"]
+transform = Transform( -1, 0, -8.74228e-008, 0, 1, 0, 8.74228e-008, 0, -1, 1.32113, 0, -1 )
 script = ExtResource( 4 )
 
 [node name="CarryLocation" type="Spatial" parent="."]
@@ -63,4 +63,4 @@ shape = SubResource( 4 )
 [connection signal="item_lost" from="CameraHolder" to="." method="_on_CameraHolder_item_lost"]
 [connection signal="found_pickupable" from="PickableArea" to="." method="_on_PickableArea_found_pickupable"]
 [connection signal="lost_pickupable" from="PickableArea" to="." method="_on_PickableArea_lost_pickupable"]
-[connection signal="weapon_picked" from="PickableArea" to="WeaponSlot" method="_on_PickableArea_weapon_picked"]
+[connection signal="weapon_picked" from="PickableArea" to="CameraHolder/WeaponSlot" method="_on_PickableArea_weapon_picked"]

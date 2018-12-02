@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/sword.dae-a08b29d698fef22eb5a7adcadfe3fc50.scn"
+path="res://.import/Spear.dae-9f8b57a36a05b73f0966fb40ff244e06.scn"
 
 [deps]
 
-source_file="res://weapons/sword-n-shield/sword.dae"
-dest_files=[ "res://.import/sword.dae-a08b29d698fef22eb5a7adcadfe3fc50.scn" ]
+source_file="res://weapons/spear/Spear.dae"
+dest_files=[ "res://.import/Spear.dae-9f8b57a36a05b73f0966fb40ff244e06.scn" ]
 
 [params]
 

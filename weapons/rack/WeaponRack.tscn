@@ -1,12 +1,14 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://weapons/rack/WeaponRack.gd" type="Script" id=1]
 [ext_resource path="res://weapons/rack/Slot.tscn" type="PackedScene" id=2]
-[ext_resource path="res://weapons/sword-n-shield/Sword.tscn" type="PackedScene" id=3]
+[ext_resource path="res://weapons/sword/Sword.tscn" type="PackedScene" id=3]
+[ext_resource path="res://weapons/dagger/Dagger.tscn" type="PackedScene" id=4]
+[ext_resource path="res://weapons/spear/Spear.tscn" type="PackedScene" id=5]
 
 [sub_resource type="CubeMesh" id=1]
 
-size = Vector3( 3, 3, 1 )
+size = Vector3( 6, 3, 1 )
 
 [sub_resource type="SpatialMaterial" id=2]
 
@@ -31,10 +33,14 @@ active = false
 [node name="Slot3" parent="Slots" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1 )
 
-[node name="Sword" parent="Slots/Slot3" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1.65, 0, 0, 0, 1, 0, 0, 0 )
-damage = 50.0
+[node name="Dagger" parent="Slots/Slot3" instance=ExtResource( 4 )]
 active = false
+
+[node name="Slot4" parent="Slots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 1 )
+
+[node name="Spear" parent="Slots/Slot4" instance=ExtResource( 5 )]
+transform = Transform( 1, 3.94107e-022, 9.01612e-015, 0, 1, -4.37114e-008, -9.01612e-015, 4.37114e-008, 1, 0, 0, 0 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 mesh = SubResource( 1 )
