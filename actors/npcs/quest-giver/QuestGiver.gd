@@ -1,6 +1,6 @@
 extends Spatial
 
-signal quest_started()
+signal quest_started(quest)
 
 export var peaceful_animals : Array
 export var aggressive_animals : Array
@@ -22,6 +22,7 @@ func _on_Area_body_entered(body : PhysicsBody) -> void:
 	ongoing_quest = { 
 		'description': animal.description
 	}
+	emit_signal('quest_started', ongoing_quest)
 	animal.queue_free()
 
 func _on_Area_body_exited(body : PhysicsBody) -> void:
@@ -29,3 +30,7 @@ func _on_Area_body_exited(body : PhysicsBody) -> void:
 	if player == null:
 		return
 	gui.show_text('')
+
+func _on_Game_quest_finished():
+	completed_quests += 1
+	ongoing_quest.clear()

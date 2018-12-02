@@ -56,3 +56,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -5 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -14 )
 peaceful_animals = null
 
+[connection signal="quest_finished" from="." to="QuestGiver" method="_on_Game_quest_finished"]
+[connection signal="offering_offered" from="Map/Altar" to="." method="_on_Altar_offering_offered"]
+[connection signal="quest_started" from="QuestGiver" to="." method="_on_QuestGiver_quest_started"]

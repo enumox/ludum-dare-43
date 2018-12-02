@@ -1,6 +1,6 @@
 extends Spatial
 
-signal offering_offered()
+signal offering_offered(offering)
 
 onready var sacrifice_position : = $SacrificePosition as Spatial
 onready var gui : = $GUI
@@ -17,7 +17,7 @@ func place_offering(offering : Spatial) -> void:
 	offering.translation = Vector3()
 	#TODO: Add animation/effect
 	yield(get_tree().create_timer(2.0), 'timeout')
-	emit_signal('offering_offered')
+	emit_signal('offering_offered', offering)
 	sacrifice_position.get_child(0).queue_free()
 
 func _input(event) -> void:
