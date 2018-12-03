@@ -10,6 +10,7 @@ onready var sight = $Sight
 onready var presence = $PresenseArea
 onready var raycast = $RayCast
 onready var gui = $GUI
+onready var animation = $AnimalMesh/AnimationPlayer
 
 export var max_hp : float
 export var gravity : float
@@ -32,7 +33,7 @@ var dead : bool = false
 
 func _ready() -> void:
 	health = max_hp
-	weak_spot.connect('body_entered', self, '_on_weak_spot_body_entered')
+#	weak_spot.connect('body_entered', self, '_on_weak_spot_body_entered')
 	sight.connect('body_entered', self, '_on_sight_body_entered')
 	presence.connect('body_entered', self, '_on_presence_body_entered')
 	presence.connect('body_exited', self, '_on_presence_body_exited')
@@ -129,6 +130,7 @@ func _take_damage(value : float, weak_spot_hit : bool = false) -> void:
 		dead = true
 		set_physics_process(false)
 		set_process(false)
+		animation.stop()
 		rotation.z = 90
 		if player != null:
 			presence_shape.shape.radius /= 2
