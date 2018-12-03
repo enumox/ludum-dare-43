@@ -45,13 +45,14 @@ config/icon="res://icon.png"
 [autoload]
 
 Debugger="*res://utils/Debugger.gd"
+Scores="*res://utils/Scores.gd"
 
 [display]
 
-window/size/width=1280
-window/size/height=720
-window/size/test_width=480
-window/size/test_height=270
+window/size/width=640
+window/size/height=360
+window/size/test_width=1280
+window/size/test_height=720
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
@@ -112,4 +113,5 @@ interact={
 [rendering]
 
 quality/driver/driver_name="GLES2"
+environment/default_clear_color=Color( 0.0941176, 0.101961, 0.188235, 1 )
 environment/default_environment="res://default_env.tres"

@@ -10,10 +10,11 @@ func _on_Altar_offering_offered(offering : Object) -> void:
 	ongoing_quest.clear()
 	print(ongoing_quest)
 	if offering.description != description:
-		print('WRONG')
 		gods_mad_level += 1
+		if gods_mad_level >= 3:
+			get_tree().change_scene("res://interface/FinalMenu.tscn")
 	else:
-		print('RIGHT')
+		Scores.score += 1
 
 func set_ongoing_quest(new_value):
 	ongoing_quest = new_value

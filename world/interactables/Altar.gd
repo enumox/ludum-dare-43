@@ -22,10 +22,8 @@ func place_offering(offering : Spatial) -> void:
 
 func _input(event) -> void:
 	if event.is_action_pressed('interact'):
-		print('yes yes pls')
 		var offering = player.take_offering()
 		place_offering(offering)
-	
 
 func _on_body_entered(body : PhysicsBody) -> void:
 	var player = body as Player
