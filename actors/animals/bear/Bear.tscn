@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://actors/animals/BaseAnimal.tscn" type="PackedScene" id=1]
+[ext_resource path="res://actors/animals/bear/BearMesh.tscn" type="PackedScene" id=2]
 
 [node name="Bear" instance=ExtResource( 1 )]
 max_hp = 120.0
@@ -9,4 +10,10 @@ move_speed = 2.0
 run_speed = 15.0
 description = "fat and hairy"
 sense_of_presence_radius = 25.0
+
+[node name="BodyHitBox" parent="." index="5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.11392, 0 )
+
+[node name="AnimalMesh" parent="." index="6" instance=ExtResource( 2 )]
+transform = Transform( -1, 0, -8.74228e-008, 0, 1, 0, 8.74228e-008, 0, -1, 0, 1.50449, 0 )
 
