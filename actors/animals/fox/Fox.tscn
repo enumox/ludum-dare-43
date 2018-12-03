@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://actors/animals/BaseAnimal.tscn" type="PackedScene" id=1]
+[ext_resource path="res://actors/animals/fox/FoxMesh.tscn" type="PackedScene" id=2]
+
+[sub_resource type="BoxShape" id=1]
+
+extents = Vector3( 1, 2, 1.25 )
 
 [node name="Fox" instance=ExtResource( 1 )]
 max_hp = 25.0
@@ -9,4 +14,13 @@ move_speed = 7.0
 run_speed = 15.0
 description = "small that looks like a dog"
 sense_of_presence_radius = 25.0
+
+[node name="CollisionShape" parent="." index="1"]
+shape = SubResource( 1 )
+
+[node name="BodyHitBox" parent="." index="5"]
+editor/display_folded = false
+
+[node name="AnimalMesh" parent="." index="6" instance=ExtResource( 2 )]
+transform = Transform( -1, 0, -8.74228e-008, 0, 1, 0, 8.74228e-008, 0, -1, 0, 0, 0 )
 
