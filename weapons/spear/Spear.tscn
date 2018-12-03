@@ -36,14 +36,13 @@ tracks/1/keys = {
 
 [sub_resource type="BoxShape" id=2]
 
-extents = Vector3( 0.51543, 1, 0.474435 )
+extents = Vector3( 0.916178, 1.9439, 1.42654 )
 
-[node name="Spear" instance=ExtResource( 1 )]
-transform = Transform( -4.37114e-008, 4.37114e-008, 1, 1, -4.37114e-008, 4.37114e-008, 4.37114e-008, 1, -4.37114e-008, 0, 0, 0 )
+[node name="Spear" index="0" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 damage = 25.0
 attack_delay = 1.5
-active_rotation = Vector3( 90, 0, 0 )
+active_rotation = Vector3( 0, 0, 0 )
 active = false
 
 [node name="AnimationPlayer" parent="." index="1"]

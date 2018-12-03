@@ -47,10 +47,10 @@ attack_delay = 1.0
 anims/attack = SubResource( 1 )
 
 [node name="SwordMesh" parent="." index="2" instance=ExtResource( 3 )]
-transform = Transform( -4.37114e-008, 0, -1, 0, 1, 0, 1, 0, -4.37114e-008, 0, 0, 0 )
+transform = Transform( -4.37114e-008, 0, -1, 0, 1, 0, 1, 0, -4.37114e-008, 0, 1.10866, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="." index="3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.28501, 0 )
 shape = SubResource( 2 )
 disabled = true
 

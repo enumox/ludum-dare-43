@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://actors/npcs/quest-giver/QuestGiver.gd" type="Script" id=1]
 [ext_resource path="res://actors/animals/hare/Hare.tscn" type="PackedScene" id=2]
@@ -8,15 +8,9 @@
 [ext_resource path="res://actors/animals/mammoth/Mammoth.tscn" type="PackedScene" id=6]
 [ext_resource path="res://actors/animals/saber-tooth-tiger/SaberToothTiger.tscn" type="PackedScene" id=7]
 [ext_resource path="res://interface/gui/GUI.tscn" type="PackedScene" id=8]
+[ext_resource path="res://actors/npcs/quest-giver/NpcMesh.tscn" type="PackedScene" id=9]
 
-[sub_resource type="CubeMesh" id=1]
-
-
-[sub_resource type="SpatialMaterial" id=2]
-
-albedo_color = Color( 0.992157, 1, 0.113725, 1 )
-
-[sub_resource type="SphereShape" id=3]
+[sub_resource type="SphereShape" id=1]
 
 radius = 6.25582
 
@@ -25,19 +19,18 @@ script = ExtResource( 1 )
 peaceful_animals = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ]
 aggressive_animals = [  ]
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
-mesh = SubResource( 1 )
-material/0 = SubResource( 2 )
-
 [node name="Area" type="Area" parent="."]
 
 [node name="CollisionShape" type="CollisionShape" parent="Area"]
-shape = SubResource( 3 )
+shape = SubResource( 1 )
 
 [node name="GUI" parent="." instance=ExtResource( 8 )]
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 unit_db = 10.0
+
+[node name="NpcMesh" parent="." instance=ExtResource( 9 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0 )
 
 [connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]
 [connection signal="body_exited" from="Area" to="." method="_on_Area_body_exited"]

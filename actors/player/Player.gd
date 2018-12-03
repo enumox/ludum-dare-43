@@ -6,6 +6,7 @@ signal item_lost()
 
 onready var gui = $GUI
 onready var carry_location : = $CarryLocation as Spatial
+onready var animation : = $PlayerMesh/AnimationPlayer
 
 export var move_speed : float
 export var jump_force : float
@@ -26,14 +27,15 @@ func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _physics_process(delta : float) -> void:
+	var animation_name = "Run Cycle"
 	dir = Vector3()
 	var motion = Vector3()
 	walking = false
 	crouching = false
 	motion.x = int(Input.is_action_pressed('move_right')) - int(Input.is_action_pressed('move_left'))
 	motion.z = int(Input.is_action_pressed('move_forward')) - int(Input.is_action_pressed('move_backward'))
-	if Input.is_action_just_released('jump') and is_on_floor():
-		movement.y = jump_force
+#	if Input.is_action_just_released('jump') and is_on_floor():
+#		movement.y = jump_force
 
 	motion = motion.normalized()
 	
@@ -46,11 +48,20 @@ func _physics_process(delta : float) -> void:
 	var frame_speed = move_speed
 	#TODO: Play correct animations
 	if Input.is_action_pressed('walk'):
-		frame_speed *= 0.75
-		walking = true
-	elif Input.is_action_pressed('crouch'):
 		frame_speed *= 0.5
+		walking = true
+		animation_name = "Walk Cycle"
+	elif Input.is_action_pressed('crouch'):
+		frame_speed *= 0.4
 		crouching = true
+		animation_name = "Crouch Cycle"
+	elif Input.is_action_just_pressed("attack") and $PlayerMesh/Armature/WeaponSlot.get_child_count() > 0:
+		if $PlayerMesh/Armature/WeaponSlot.get_child(0).name == "Spear":
+			animation_name = "Attack Spear"
+		else:
+			animation_name = "Attack Sword"
+		animation.play(animation_name)
+		yield(animation, "animation_finished")
 	
 	if frame_speed < move_speed:
 		frame_velocity = movement.linear_interpolate(dir * frame_speed, deceleration * delta)
@@ -61,7 +72,13 @@ func _physics_process(delta : float) -> void:
 	movement.z = frame_velocity.z
 	movement.y += delta * gravity
 	movement = move_and_slide(movement, Vector3(0, 1, 0), 2)
-
+	
+	if animation.current_animation == "Attack Spear" or animation.current_animation == "Attack Sword":
+		if not animation.playback_active:
+			animation.play(animation_name)
+	elif animation_name != animation.current_animation:
+		animation.play(animation_name)
+	
 func _input(event) -> void:
 	if event is InputEventMouseMotion:
 		yaw = fmod(yaw - event.relative.x * 0.5, 360)

@@ -1,25 +1,14 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://actors/player/Player.gd" type="Script" id=1]
 [ext_resource path="res://interface/gui/GUI.tscn" type="PackedScene" id=2]
 [ext_resource path="res://actors/camera/CameraHolder.tscn" type="PackedScene" id=3]
-[ext_resource path="res://actors/player/WeaponSlot.gd" type="Script" id=4]
-[ext_resource path="res://actors/player/PickableArea.gd" type="Script" id=5]
+[ext_resource path="res://actors/player/PickableArea.gd" type="Script" id=4]
+[ext_resource path="res://actors/player/PlayerMesh.tscn" type="PackedScene" id=5]
 
 [sub_resource type="ConvexPolygonShape" id=1]
 
 points = PoolVector3Array( -1, 1, 1, 1, 1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, -1, 1, 1, -1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, 1, 1, 1, -1, -1, 1, -1, 1, 1, 1, -1, 1, 1, 1, -1, -1, -1, -1, -1, 1, -1, 1, -1, -1 )
-
-[sub_resource type="CubeMesh" id=2]
-
-
-[sub_resource type="SpatialMaterial" id=3]
-
-albedo_color = Color( 0.168627, 0.207843, 0.611765, 1 )
-ao_enabled = true
-ao_light_affect = 0.0
-ao_on_uv2 = false
-ao_texture_channel = 0
 
 [sub_resource type="BoxShape" id=4]
 
@@ -39,28 +28,23 @@ deceleration = 7.0
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 1 )
 
-[node name="Mesh" type="MeshInstance" parent="."]
-mesh = SubResource( 2 )
-material/0 = SubResource( 3 )
-
 [node name="CameraHolder" parent="." instance=ExtResource( 3 )]
 
-[node name="WeaponSlot" type="Spatial" parent="CameraHolder"]
-transform = Transform( -1, 0, -8.74228e-008, 0, 1, 0, 8.74228e-008, 0, -1, 1.32113, 0, -1 )
-script = ExtResource( 4 )
-
 [node name="CarryLocation" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 6.60744, 0 )
 
 [node name="PickableArea" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 2 )
-script = ExtResource( 5 )
+script = ExtResource( 4 )
 
 [node name="CollisionShape" type="CollisionShape" parent="PickableArea"]
 shape = SubResource( 4 )
+
+[node name="PlayerMesh" parent="." instance=ExtResource( 5 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, -1.07474, 0 )
 
 [connection signal="interactable_found" from="CameraHolder" to="." method="_on_CameraHolder_interactable_found"]
 [connection signal="item_lost" from="CameraHolder" to="." method="_on_CameraHolder_item_lost"]
 [connection signal="found_pickupable" from="PickableArea" to="." method="_on_PickableArea_found_pickupable"]
 [connection signal="lost_pickupable" from="PickableArea" to="." method="_on_PickableArea_lost_pickupable"]
-[connection signal="weapon_picked" from="PickableArea" to="CameraHolder/WeaponSlot" method="_on_PickableArea_weapon_picked"]
+[connection signal="weapon_picked" from="PickableArea" to="PlayerMesh" method="_on_PickableArea_weapon_picked"]

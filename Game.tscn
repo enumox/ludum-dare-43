@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://actors/player/Player.tscn" type="PackedScene" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://world/FinalWorld.tscn" type="PackedScene" id=14]
 [ext_resource path="res://actors/npcs/quest-giver/QuestGiver.tscn" type="PackedScene" id=15]
 [ext_resource path="res://sounds/uhhh.wav" type="AudioStream" id=16]
+[ext_resource path="res://actors/npcs/random/NpcNormal.tscn" type="PackedScene" id=17]
 
 [sub_resource type="Environment" id=1]
 
@@ -37,7 +38,7 @@ script = ExtResource( 1 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 29, 50 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -18, -7.70479, 50 )
 
 [node name="CameraHolder" parent="Player" instance=ExtResource( 3 )]
 
@@ -48,10 +49,12 @@ light_energy = 0.5
 shadow_enabled = true
 
 [node name="Map" type="Navigation" parent="."]
+editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, -3, 0 )
 script = ExtResource( 4 )
 
 [node name="Animals" type="Node" parent="Map"]
+editor/display_folded = true
 
 [node name="Hare" parent="Map/Animals" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 6, 0 )
@@ -85,7 +88,7 @@ visible = false
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -20, 0 )
 
 [node name="QuestGiver" parent="." instance=ExtResource( 15 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13, -5.70917, 11 )
+transform = Transform( 0.345383, 0, -0.938462, 0, 1, 0, 0.938462, 0, 0.345383, 20.2764, -9.81252, 11 )
 peaceful_animals = null
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -94,6 +97,36 @@ environment = SubResource( 1 )
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 16 )
 volume_db = 2.5
+
+[node name="Npcs" type="Spatial" parent="."]
+editor/display_folded = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16.0406, -10.6396, 28.0588 )
+
+[node name="NpcNormal" parent="Npcs" instance=ExtResource( 17 )]
+
+[node name="NpcNormal2" parent="Npcs" instance=ExtResource( 17 )]
+transform = Transform( 0.311978, 0, -0.586095, 0, 0.75, 0, 0.39073, 0, 0.467966, 6.7145, -0.786366, 1.01525 )
+
+[node name="NpcNormal3" parent="Npcs" instance=ExtResource( 17 )]
+transform = Transform( 0.196593, 0, -0.689594, 0, 0.75, 0, 0.45973, 0, 0.294889, 10.8065, -1.65837, 5.89438 )
+
+[node name="NpcNormal4" parent="Npcs" instance=ExtResource( 17 )]
+transform = Transform( -0.10024, 0, -0.734773, 0, 0.75, 0, 0.489849, 0, -0.150359, 12.3878, -1.65837, 12.7818 )
+
+[node name="NpcNormal5" parent="Npcs" instance=ExtResource( 17 )]
+transform = Transform( -0.41285, 0, -0.423082, 0, 0.75, 0, 0.282054, 0, -0.619275, 10.3461, -1.73233, 20.1481 )
+
+[node name="NpcNormal6" parent="Npcs" instance=ExtResource( 17 )]
+transform = Transform( -0.499714, 0, -0.0253409, 0, 0.75, 0, 0.0168939, 0, -0.749572, 5.24919, -1.21389, 20.304 )
+
+[node name="NpcNormal7" parent="Npcs" instance=ExtResource( 17 )]
+transform = Transform( -0.415983, 0, 0.41612, 0, 0.75, 0, -0.277414, 0, -0.623974, -3.08012, -0.496349, 15.1092 )
+
+[node name="NpcNormal8" parent="Npcs" instance=ExtResource( 17 )]
+transform = Transform( -0.176929, 0, 0.701474, 0, 0.75, 0, -0.467649, 0, -0.265394, -7.33887, 0.0689182, 12.2691 )
+
+[node name="NpcNormal9" parent="Npcs" instance=ExtResource( 17 )]
+transform = Transform( 0.0381617, 0, 0.747812, 0, 0.75, 0, -0.498541, 0, 0.0572426, -7.88232, 0.425058, 6.22505 )
 
 [connection signal="quest_finished" from="." to="QuestGiver" method="_on_Game_quest_finished"]
 [connection signal="offering_offered" from="Map/Altar" to="." method="_on_Altar_offering_offered"]
