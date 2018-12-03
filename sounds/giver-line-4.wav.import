@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/giver-line-4.wav-eb609282c7be4c2c4acf8813bad37719.sample"
+
+[deps]
+
+source_file="res://sounds/giver-line-4.wav"
+dest_files=[ "res://.import/giver-line-4.wav-eb609282c7be4c2c4acf8813bad37719.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

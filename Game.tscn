@@ -84,7 +84,7 @@ visible = false
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -20, 0 )
 
 [node name="QuestGiver" parent="." instance=ExtResource( 15 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13, -9, 11 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13, -5.70917, 11 )
 peaceful_animals = null
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
