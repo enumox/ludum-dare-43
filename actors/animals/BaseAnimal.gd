@@ -3,7 +3,6 @@ class_name BaseAnimal
 
 signal path_requested(start, end, requester)
 
-onready var weak_spot = $WeakSpot
 onready var body = $BodyHitBox
 onready var presence_shape = $PresenseArea/CollisionShape
 onready var sight = $Sight
