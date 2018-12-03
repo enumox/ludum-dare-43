@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://actors/player/Player.tscn" type="PackedScene" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://world/FinalMapNavMesh.tscn" type="PackedScene" id=13]
 [ext_resource path="res://world/FinalWorld.tscn" type="PackedScene" id=14]
 [ext_resource path="res://actors/npcs/quest-giver/QuestGiver.tscn" type="PackedScene" id=15]
+[ext_resource path="res://sounds/uhhh.wav" type="AudioStream" id=16]
 
 [sub_resource type="Environment" id=1]
 
@@ -89,6 +90,10 @@ peaceful_animals = null
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 1 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 16 )
+volume_db = 2.5
 
 [connection signal="quest_finished" from="." to="QuestGiver" method="_on_Game_quest_finished"]
 [connection signal="offering_offered" from="Map/Altar" to="." method="_on_Altar_offering_offered"]

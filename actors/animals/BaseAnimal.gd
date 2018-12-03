@@ -10,6 +10,7 @@ onready var presence = $PresenseArea
 onready var raycast = $RayCast
 onready var gui = $GUI
 onready var animation = $AnimalMesh/AnimationPlayer
+onready var audio : = $AudioStreamPlayer3D
 
 export var max_hp : float
 export var gravity : float
@@ -30,9 +31,15 @@ var path = Array()
 var player = null
 var dead : bool = false
 
+var hit_sounds = [
+	preload("res://sounds/hit.wav"),
+	preload("res://sounds/hit-2.wav"),
+	preload("res://sounds/hit-3.wav"),
+]
+
 func _ready() -> void:
+	randomize()
 	health = max_hp
-#	weak_spot.connect('body_entered', self, '_on_weak_spot_body_entered')
 	sight.connect('body_entered', self, '_on_sight_body_entered')
 	presence.connect('body_entered', self, '_on_presence_body_entered')
 	presence.connect('body_exited', self, '_on_presence_body_exited')
@@ -125,6 +132,8 @@ func _take_damage(value : float, weak_spot_hit : bool = false) -> void:
 	print('damage: ' + str(value))
 	OS.delay_msec(100)
 	health -= value
+	audio.stream = hit_sounds[randi() % hit_sounds.size()]
+	audio.play()
 	if health <= 0:
 		dead = true
 		set_physics_process(false)

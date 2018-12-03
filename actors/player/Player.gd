@@ -46,10 +46,10 @@ func _physics_process(delta : float) -> void:
 	var frame_speed = move_speed
 	#TODO: Play correct animations
 	if Input.is_action_pressed('walk'):
-		frame_speed *= 0.5
+		frame_speed *= 0.75
 		walking = true
 	elif Input.is_action_pressed('crouch'):
-		frame_speed *= 0.25
+		frame_speed *= 0.5
 		crouching = true
 	
 	if frame_speed < move_speed:

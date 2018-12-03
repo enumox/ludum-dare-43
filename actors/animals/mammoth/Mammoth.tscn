@@ -8,7 +8,7 @@ max_hp = 200.0
 gravity = 9.8
 move_speed = 2.0
 run_speed = 10.0
-description = "big with round tooths"
+description = "big with round tusks"
 sense_of_presence_radius = 40.0
 
 [node name="BodyHitBox" parent="." index="5"]
