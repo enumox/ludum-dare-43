@@ -17,7 +17,7 @@ radius = 10.0363
 
 [sub_resource type="BoxShape" id=4]
 
-extents = Vector3( 3.41431, 3.88654, 6.8174 )
+extents = Vector3( 1.87524, 2.19023, 4.16363 )
 
 [node name="BaseAnimal" type="KinematicBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 7.23, 39 )
